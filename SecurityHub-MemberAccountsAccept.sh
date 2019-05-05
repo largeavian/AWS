@@ -25,7 +25,7 @@ while IFS= read -r acctid
                 echo -e "Attempting commands against ${YELLOW}$AcctNumber${NC}..."
 
                 # 'file2' should include all regions where Security Hub will be deployed
-                file2="/home/ec2-user/regions-temp.txt"
+                file2="/home/ec2-user/regions.txt"
 
                 while IFS= read -r region
                         do
