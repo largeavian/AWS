@@ -1,0 +1,97 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowPassRoleForCloudFormation",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::<OrgMasterAcctId>:role/<Secondary-StackSetAdministrationRole>"
+            ]
+        },
+        {
+            "Sid": "LimitCreateModifyToNameAndForceAdminRoleWherePossible",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:CreateStack",
+                "cloudformation:DeleteStack",
+                "cloudformation:UpdateStack",
+                "cloudformation:UpdateStackSet",
+                "cloudformation:CreateChangeSet",
+                "cloudformation:ContinueUpdateRollback",
+                "cloudformation:CreateStackSet"
+            ],
+            "Resource": [
+                "arn:aws:cloudformation:us-east-1:*:stackset/<NamingConvention>-*:*",
+                "arn:aws:cloudformation:*:*:stack/<NamingConvention>-*/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "cloudformation:RoleArn": "arn:aws:iam::<OrgMasterAcctId>:role/<Secondary-StackSetAdministrationRole>"
+                }
+            }
+        },
+        {
+            "Sid": "LimitCreateModifyToName",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:DeleteStackInstances",
+                "cloudformation:CancelUpdateStack",
+                "cloudformation:UpdateStackInstances",
+                "cloudformation:UpdateTerminationProtection",
+                "cloudformation:SignalResource",
+                "cloudformation:DeleteStackSet",
+                "cloudformation:CreateStackInstances",
+                "cloudformation:DeleteChangeSet",
+                "cloudformation:TagResource",
+                "cloudformation:StopStackSetOperation",
+                "cloudformation:UntagResource",
+                "cloudformation:ExecuteChangeSet"
+            ],
+            "Resource": [
+                "arn:aws:cloudformation:*:*:stackset/<NamingConvention>-*:*",
+                "arn:aws:cloudformation:*:*:stack/<NamingConvention>-*/*"
+            ]
+        },
+        {
+            "Sid": "AdditionalCloudFormationPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:CreateUploadBucket",
+                "cloudformation:DetectStackSetDrift",
+                "cloudformation:ListExports",
+                "cloudformation:DescribeStackDriftDetectionStatus",
+                "cloudformation:DetectStackDrift",
+                "cloudformation:ListStackSetOperations",
+                "cloudformation:ListStackInstances",
+                "cloudformation:DescribeStackResource",
+                "cloudformation:ListStackSetOperationResults",
+                "cloudformation:DetectStackResourceDrift",
+                "cloudformation:EstimateTemplateCost",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:DescribeStackSetOperation",
+                "cloudformation:DescribeAccountLimits",
+                "cloudformation:DescribeChangeSet",
+                "cloudformation:ListStackResources",
+                "cloudformation:ListStacks",
+                "cloudformation:ListImports",
+                "cloudformation:DescribeStackInstance",
+                "cloudformation:DescribeStackResources",
+                "iam:ListRoles",
+                "cloudformation:GetTemplateSummary",
+                "cloudformation:DescribeStacks",
+                "s3:GetObject",
+                "cloudformation:DescribeStackResourceDrifts",
+                "cloudformation:GetStackPolicy",
+                "cloudformation:DescribeStackSet",
+                "cloudformation:ListStackSets",
+                "cloudformation:GetTemplate",
+                "cloudformation:ValidateTemplate",
+                "cloudformation:ListChangeSets"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
