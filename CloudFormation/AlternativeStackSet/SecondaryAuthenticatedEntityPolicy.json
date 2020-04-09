@@ -24,7 +24,7 @@
                 "cloudformation:CreateStackSet"
             ],
             "Resource": [
-                "arn:aws:cloudformation:us-east-1:*:stackset/<NamingConvention>-*:*",
+                "arn:aws:cloudformation:*:*:stackset/<NamingConvention>-*:*",
                 "arn:aws:cloudformation:*:*:stack/<NamingConvention>-*/*"
             ],
             "Condition": {
